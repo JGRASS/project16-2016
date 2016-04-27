@@ -19,11 +19,7 @@ public class SpisakProizvoda {
 
 	public LinkedList<Proizvod> getSpisak() {
 		return spisak;
-	}	
-	
-	public void setSpisak(LinkedList<Proizvod> spisak) {
-		this.spisak = spisak;
-	}
+	}		
 
 	public LinkedList<Proizvod> obrisiIzSpiska(Proizvod proizvod){		
 		for (int i = 0; i < spisak.size(); i++) {
