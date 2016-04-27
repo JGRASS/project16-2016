@@ -25,7 +25,7 @@ public class SpisakProizvoda {
 		this.spisak = spisak;
 	}
 
-	public LinkedList<Proizvod> obrisiIzSpiska(Proizvod proizvod){
+	public LinkedList<Proizvod> obrisiIzSpiska(Proizvod proizvod){		
 		for (int i = 0; i < spisak.size(); i++) {
 			if(spisak.get(i).equals(proizvod)){
 				spisak.remove(i);
@@ -37,7 +37,7 @@ public class SpisakProizvoda {
 		return spisak;
 	}
 	
-	public void dodajProizvod(String sifra, String naziv, double cena){
+	public void dodajProizvod(String sifra, String naziv, double cena){		
 		Proizvod proizvod = new Proizvod(sifra, naziv, cena);
 		if(!spisak.contains(proizvod)){
 			spisak.add(proizvod);

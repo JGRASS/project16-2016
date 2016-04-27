@@ -186,10 +186,26 @@ public class GUIGlavniProgram extends JFrame {
 		btnObrisi.setIcon(new ImageIcon(GUIGlavniProgram.class.getResource("/com/sun/javafx/scene/web/skin/Cut_16x16_JFX.png")));
 		btnObrisi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
-				try {
-					Proizvod proizvod = new Proizvod(textFieldSifra.getText(), textFieldNaziv.getText(), Double.parseDouble(txtCena.getText()));
-					spisak = Kontroler.obrisiIzSpiska(spisak, proizvod);					
-					model.removeRow(table.getSelectedRow());
+				try {					
+					if(table.getSelectedRow() == -1){
+						int row = -1;
+						for (int i = 0; i < model.getRowCount(); i++) {
+							if(model.getValueAt(i, 0).toString().equals(textFieldSifra.getText())){
+								row = i;								
+								break;
+							}
+						}
+						model.removeRow(row);
+					}else{
+						model.removeRow(table.getSelectedRow());
+					}
+					Proizvod proizvod;
+					try {
+						proizvod = new Proizvod(textFieldSifra.getText(), textFieldNaziv.getText(), Double.parseDouble(txtCena.getText()));
+					} catch (Exception e1) {
+						proizvod = new Proizvod(textFieldSifra.getText(), "PRAZNO", 0);
+					}
+					spisak = Kontroler.obrisiIzSpiska(spisak, proizvod);
 					model.fireTableDataChanged();
 					panelEast.setVisible(false);
 					textFieldSifra.setText(null);
