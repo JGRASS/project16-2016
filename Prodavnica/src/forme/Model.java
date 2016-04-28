@@ -1,4 +1,4 @@
-package domen;
+package forme;
 
 import java.lang.reflect.Constructor;
 import java.util.Vector;
@@ -27,8 +27,8 @@ public class Model extends DefaultTableModel {
 	/**
 	 * Parametrizovan {@link Constructor} koji u sustini poziva konstruktor nadklase {@link DefaultTableModel}.
 	 * 
-	 * @param rowCount
-	 * @param columnCount
+	 * @param rowCount Broj redova
+	 * @param columnCount Broj kolona
 	 * @author Milos Cvetkovic
 	 */
 	public Model(int rowCount, int columnCount) {
@@ -38,8 +38,8 @@ public class Model extends DefaultTableModel {
 	/**
 	 * Parametrizovan {@link Constructor} koji u sustini poziva konstruktor nadklase {@link DefaultTableModel}.
 	 * 
-	 * @param columnNames
-	 * @param rowCount
+	 * @param columnNames Nazivi kolona
+	 * @param rowCount Broj redova
 	 * @author Milos Cvetkovic
 	 */
 	public Model(Object[] columnNames, int rowCount) {
@@ -49,8 +49,8 @@ public class Model extends DefaultTableModel {
 	/**
 	 * Parametrizovan {@link Constructor} koji u sustini poziva konstruktor nadklase {@link DefaultTableModel}.
 	 * 
-	 * @param data
-	 * @param columnNames
+	 * @param data Podaci iz tabele
+	 * @param columnNames Nazivi kolona
 	 * @author Milos Cvetkovic
 	 */
 	public Model(Object[][] data, Object[] columnNames) {
@@ -60,8 +60,8 @@ public class Model extends DefaultTableModel {
 	/**
 	 * Parametrizovan {@link Constructor} koji u sustini poziva konstruktor nadklase {@link DefaultTableModel}.
 	 * 
-	 * @param columnNames
-	 * @param rowCount
+	 * @param columnNames Nazivi kolona
+	 * @param rowCount Broj redova
 	 * @author Milos Cvetkovic
 	 */
 	@SuppressWarnings("rawtypes")
@@ -72,8 +72,8 @@ public class Model extends DefaultTableModel {
 	/**
 	 * Parametrizovan {@link Constructor} koji u sustini poziva konstruktor nadklase {@link DefaultTableModel}.
 	 * 
-	 * @param data
-	 * @param columnNames
+	 * @param data Podaci iz tabele
+	 * @param columnNames Nazivi kolona
 	 * @author Milos Cvetkovic
 	 */
 	@SuppressWarnings("rawtypes")

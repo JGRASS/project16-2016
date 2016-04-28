@@ -34,9 +34,9 @@ public class Proizvod implements Serializable{
 	/**
 	 * {@link Constructor} koji kreira novi proizvod.
 	 * 
-	 * @param sifra
-	 * @param naziv
-	 * @param cena
+	 * @param sifra String
+	 * @param naziv String
+	 * @param cena double
 	 * @author Milos Cvetkovic
 	 */
 	public Proizvod(String sifra, String naziv, double cena) {
@@ -58,7 +58,7 @@ public class Proizvod implements Serializable{
 	/**
 	 * Postavlja sifru proizvoda.
 	 * 
-	 * @param sifra
+	 * @param sifra String
 	 * @author Milos Cvetkovic
 	 */
 	public void setSifra(String sifra) {
@@ -82,7 +82,7 @@ public class Proizvod implements Serializable{
 	/**
 	 * Postavlja naziv proizvoda.
 	 * 
-	 * @param naziv
+	 * @param naziv String
 	 * @author Milos Cvetkovic
 	 */
 	public void setNaziv(String naziv) {
@@ -106,7 +106,7 @@ public class Proizvod implements Serializable{
 	/**
 	 * Postavlja cenu proizvoda.
 	 * 
-	 * @param cena
+	 * @param cena double
 	 * @author Milos Cvetkovic
 	 */
 	public void setCena(double cena) {

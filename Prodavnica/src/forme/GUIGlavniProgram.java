@@ -1,14 +1,12 @@
 package forme;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import domen.Kontroler;
-import domen.Model;
-import domen.Proizvod;
-import domen.SpisakProizvoda;
+
+import kontroler.Kontroler;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -30,27 +28,11 @@ import javax.swing.ImageIcon;
 public class GUIGlavniProgram extends JFrame {
 
 	private JPanel contentPane;
-	private SpisakProizvoda spisak;
 	private JTable table;
 	private JTextField textFieldSifra;
 	private JTextField textFieldNaziv;
-	private JTextField txtCena;
+	private JTextField textFieldCena;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUIGlavniProgram frame = new GUIGlavniProgram();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -58,7 +40,6 @@ public class GUIGlavniProgram extends JFrame {
 	public GUIGlavniProgram() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage(GUIGlavniProgram.class.getResource("/javax/swing/plaf/metal/icons/ocean/computer.gif")));
 		setTitle("Prodavnica");
-		spisak = new SpisakProizvoda();
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 568, 450);
 		contentPane = new JPanel();
@@ -68,19 +49,7 @@ public class GUIGlavniProgram extends JFrame {
 		JScrollPane scrollPaneTabela = new JScrollPane();
 		contentPane.add(scrollPaneTabela, BorderLayout.CENTER);
 		
-		String[] columnNames = {"Sifra", "Naziv", "Cena"};
-		Model model = new Model(columnNames, spisak.getSpisak().size());
-		for (int i = 0; i < spisak.getSpisak().size(); i++) {
-			for (int j = 0; j < 3; j++) {
-				if(j==0){
-					model.setValueAt(spisak.getSpisak().get(i).getSifra(), i, j);
-				}else if(j==1){
-					model.setValueAt(spisak.getSpisak().get(i).getNaziv(), i, j);
-				}else if(j==2){
-					model.setValueAt(spisak.getSpisak().get(i).getCena(), i, j);
-				}
-			}
-		}
+		Model model = Kontroler.kreirajModel();
 		table = new JTable(model);
 		table.setFont(new Font("Tahoma", Font.BOLD, 14));
 		table.addMouseListener(new MouseAdapter() {
@@ -89,7 +58,7 @@ public class GUIGlavniProgram extends JFrame {
 				int red = table.getSelectedRow();
 				textFieldSifra.setText(model.getValueAt(red, 0).toString());
 				textFieldNaziv.setText(model.getValueAt(red, 1).toString());
-				txtCena.setText(model.getValueAt(red, 2).toString());
+				textFieldCena.setText(model.getValueAt(red, 2).toString());
 			}
 		});
 		model.fireTableDataChanged();
@@ -110,7 +79,7 @@ public class GUIGlavniProgram extends JFrame {
 		btnIzlaz.setIcon(new ImageIcon(GUIGlavniProgram.class.getResource("/javax/swing/plaf/metal/icons/ocean/close.gif")));
 		btnIzlaz.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new IzlazPotvrda().setVisible(true);
+				Kontroler.potvrdaIzlaza();
 			}
 		});
 		panelButtons.add(btnIzlaz);
@@ -165,14 +134,14 @@ public class GUIGlavniProgram extends JFrame {
 		gbc_lblCena.gridy = 3;
 		panelEast.add(lblCena, gbc_lblCena);
 		
-		txtCena = new JTextField();
+		textFieldCena = new JTextField();
 		GridBagConstraints gbc_txtCena = new GridBagConstraints();
 		gbc_txtCena.anchor = GridBagConstraints.NORTHWEST;
 		gbc_txtCena.insets = new Insets(0, 0, 5, 0);
 		gbc_txtCena.gridx = 1;
 		gbc_txtCena.gridy = 3;
-		panelEast.add(txtCena, gbc_txtCena);
-		txtCena.setColumns(10);
+		panelEast.add(textFieldCena, gbc_txtCena);
+		textFieldCena.setColumns(10);
 		
 		JButton btnOdustani = new JButton("Odustani");
 		btnOdustani.setIcon(new ImageIcon(GUIGlavniProgram.class.getResource("/javax/swing/plaf/metal/icons/ocean/close.gif")));
@@ -186,57 +155,15 @@ public class GUIGlavniProgram extends JFrame {
 		btnObrisi.setIcon(new ImageIcon(GUIGlavniProgram.class.getResource("/com/sun/javafx/scene/web/skin/Cut_16x16_JFX.png")));
 		btnObrisi.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {				
-				try {					
-					if(table.getSelectedRow() == -1){
-						int row = -1;
-						for (int i = 0; i < model.getRowCount(); i++) {
-							if(model.getValueAt(i, 0).toString().equals(textFieldSifra.getText())){
-								row = i;								
-								break;
-							}
-						}
-						model.removeRow(row);
-					}else{
-						model.removeRow(table.getSelectedRow());
-					}
-					Proizvod proizvod;
-					try {
-						proizvod = new Proizvod(textFieldSifra.getText(), textFieldNaziv.getText(), Double.parseDouble(txtCena.getText()));
-					} catch (Exception e1) {
-						proizvod = new Proizvod(textFieldSifra.getText(), "PRAZNO", 0);
-					}
-					spisak = Kontroler.obrisiIzSpiska(spisak, proizvod);
-					model.fireTableDataChanged();
-					panelEast.setVisible(false);
-					textFieldSifra.setText(null);
-					textFieldNaziv.setText(null);
-					txtCena.setText(null);
-				} catch (RuntimeException e1) {
-					new NeispravanUnos().setVisible(true);
-				}
-				
+				Kontroler.dugmeObrisi(table, panelEast, model, textFieldSifra.getText(), textFieldNaziv.getText(), textFieldCena.getText());				
 			}
 		});
 		
 		JButton btnOk = new JButton("OK");
 		btnOk.setIcon(new ImageIcon(GUIGlavniProgram.class.getResource("/javax/swing/plaf/metal/icons/ocean/floppy.gif")));
 		btnOk.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {				
-				try {
-					int i = spisak.getSpisak().size();
-					spisak = Kontroler.dodajProizvod(spisak, textFieldSifra.getText(), textFieldNaziv.getText(), Double.parseDouble(txtCena.getText()));				
-					if(i == spisak.getSpisak().size()){
-						model.setValueAt(txtCena.getText(), table.getSelectedRow(), table.getSelectedColumn());
-					}else{
-						String[] s = {textFieldSifra.getText(), textFieldNaziv.getText(), txtCena.getText()};
-						model.addRow(s);
-					}
-					model.fireTableDataChanged();
-					new DodatProizvod().setVisible(true);
-					panelEast.setVisible(false);
-				} catch (RuntimeException e2) {
-					new NeispravanUnos().setVisible(true);
-				}
+			public void actionPerformed(ActionEvent e) {
+				Kontroler.dugmeOK(table, panelEast, model, textFieldSifra.getText(), textFieldNaziv.getText(), textFieldCena.getText());
 			}
 		});
 		GridBagConstraints gbc_btnOk = new GridBagConstraints();
