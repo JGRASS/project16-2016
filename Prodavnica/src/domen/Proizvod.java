@@ -4,13 +4,14 @@ import java.io.Serializable;
 import java.lang.reflect.Constructor;
 
 /**
- * Predstavlja proizvod koji se prodaje u prodavnici. Objekte je moguce cuvati u fajlovima. {@link Serializable}
+ * Predstavlja proizvod koji se prodaje u prodavnici. Objekte je moguce cuvati u
+ * fajlovima. {@link Serializable}
  * 
  * @author Milos Cvetkovic
  *
  */
 @SuppressWarnings("serial")
-public class Proizvod implements Serializable{
+public class Proizvod implements Serializable {
 
 	/**
 	 * Jedinstvena sifra proizvoda.
@@ -34,9 +35,12 @@ public class Proizvod implements Serializable{
 	/**
 	 * {@link Constructor} koji kreira novi proizvod.
 	 * 
-	 * @param sifra String
-	 * @param naziv String
-	 * @param cena double
+	 * @param sifra
+	 *            String
+	 * @param naziv
+	 *            String
+	 * @param cena
+	 *            double
 	 * @author Milos Cvetkovic
 	 */
 	public Proizvod(String sifra, String naziv, double cena) {
@@ -58,13 +62,14 @@ public class Proizvod implements Serializable{
 	/**
 	 * Postavlja sifru proizvoda.
 	 * 
-	 * @param sifra String
+	 * @param sifra
+	 *            String
 	 * @author Milos Cvetkovic
 	 */
 	public void setSifra(String sifra) {
-		if(sifra == null || sifra.isEmpty()){
+		if (sifra == null || sifra.isEmpty()) {
 			throw new RuntimeException("");
-		}else{
+		} else {
 			this.sifra = sifra;
 		}
 	}
@@ -82,13 +87,14 @@ public class Proizvod implements Serializable{
 	/**
 	 * Postavlja naziv proizvoda.
 	 * 
-	 * @param naziv String
+	 * @param naziv
+	 *            String
 	 * @author Milos Cvetkovic
 	 */
 	public void setNaziv(String naziv) {
-		if(naziv == null || naziv.isEmpty()){
+		if (naziv == null || naziv.isEmpty()) {
 			throw new RuntimeException("");
-		}else{
+		} else {
 			this.naziv = naziv;
 		}
 	}
@@ -106,19 +112,22 @@ public class Proizvod implements Serializable{
 	/**
 	 * Postavlja cenu proizvoda.
 	 * 
-	 * @param cena double
+	 * @param cena
+	 *            double
 	 * @author Milos Cvetkovic
 	 */
 	public void setCena(double cena) {
-		if(cena < 0){
+		if (cena < 0) {
 			throw new RuntimeException("");
-		}else{
+		} else {
 			this.cena = cena;
 		}
 	}
 
 	/**
-	 * Redefinisana hashCode() metoda klase {@link Object} prema parametru sifra.
+	 * Redefinisana hashCode() metoda klase {@link Object} prema parametru
+	 * sifra.
+	 * 
 	 * @return int
 	 * @author Milos Cvetkovic
 	 */
@@ -133,6 +142,7 @@ public class Proizvod implements Serializable{
 	/**
 	 * Redefinisana equals() metoda klase {@link Object} prema parametru sifra.
 	 * Vraca true ako je parametar sifra isti kao kod zadatog proizvoda.
+	 * 
 	 * @return boolean
 	 * @author Milos Cvetkovic
 	 */
@@ -155,6 +165,7 @@ public class Proizvod implements Serializable{
 
 	/**
 	 * Vraca sve podatke o proizvodu.
+	 * 
 	 * @return {@link String}
 	 * @author Milos Cvetkovic
 	 */
