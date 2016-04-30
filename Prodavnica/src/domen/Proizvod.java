@@ -44,9 +44,9 @@ public class Proizvod implements Serializable {
 	 * @author Milos Cvetkovic
 	 */
 	public Proizvod(String sifra, String naziv, double cena) {
-		this.sifra = sifra;
-		this.naziv = naziv;
-		this.cena = cena;
+		setSifra(sifra);
+		setNaziv(naziv);
+		setCena(cena);
 	}
 
 	/**

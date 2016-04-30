@@ -37,7 +37,7 @@ public class SOUcitajListuIzFajla {
 			}
 			in.close();
 		} catch (Exception e) {
-			System.out.println("Greska, ne moze se ucitati fajl.");
+			throw new RuntimeException(e.getMessage());
 		}
 	}
 
